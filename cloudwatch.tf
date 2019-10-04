@@ -45,4 +45,3 @@ resource "aws_cloudwatch_metric_alarm" "cache_memory" {
   alarm_actions = ["${var.alarm_actions}"]
 }
 */
-
