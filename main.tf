@@ -68,6 +68,7 @@ resource "aws_elasticache_parameter_group" "redis_parameter_group" {
 
   lifecycle {
     create_before_destroy = true
+    ignore_changes        = ["description"]
   }
 }
 
