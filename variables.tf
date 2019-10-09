@@ -79,12 +79,12 @@ variable "redis_parameters" {
 
 variable "redis_maintenance_window" {
   description = "Specifies the weekly time range for when maintenance on the cache cluster is performed. The format is ddd:hh24:mi-ddd:hh24:mi (24H Clock UTC). The minimum maintenance window is a 60 minute period"
-  default     = "fri:08:00-fri:09:00"
+  default     = "tue:23:30-wed:00:30"
 }
 
 variable "redis_snapshot_window" {
   description = "The daily time range (in UTC) during which ElastiCache will begin taking a daily snapshot of your cache cluster. The minimum snapshot window is a 60 minute period"
-  default     = "06:30-07:30"
+  default     = "04:00-05:00"
 }
 
 variable "redis_snapshot_retention_limit" {
