@@ -40,6 +40,8 @@ variable "name" {
 }
 
 variable "redis_clusters" {
+  type        = number
+  default     = null
   description = "Number of Redis cache clusters (nodes) to create"
 }
 
@@ -90,6 +92,24 @@ variable "redis_snapshot_window" {
 variable "redis_snapshot_retention_limit" {
   description = "The number of days for which ElastiCache will retain automatic cache cluster snapshots before deleting them. For example, if you set SnapshotRetentionLimit to 5, then a snapshot that was taken today will be retained for 5 days before being deleted. If the value of SnapshotRetentionLimit is set to zero (0), backups are turned off. Please note that setting a snapshot_retention_limit is not supported on cache.t1.micro or cache.t2.* cache nodes"
   default     = 0
+}
+
+variable "availability_zones" {
+  description = "availability zones in which the replication group's cache clusters will be created"
+  type        = list(string)
+  default     = []
+}
+
+variable "replicas_per_node_group" {
+  description = "number of replica nodes in each node group"
+  type        = number
+  default     = 1
+}
+
+variable "num_node_groups" {
+  description = "number of node groups (shards) for this Redis replication"
+  type        = number
+  default     = 1
 }
 
 variable "tags" {

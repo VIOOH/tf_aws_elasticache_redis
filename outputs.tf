@@ -3,7 +3,7 @@ output "redis_security_group_id" {
 }
 
 output "parameter_group" {
-  value = aws_elasticache_parameter_group.redis_parameter_group.id
+  value = "${var.redis_clusters == null ? aws_elasticache_parameter_group.redis_parameter_group_cluster[0].id : aws_elasticache_parameter_group.redis_parameter_group[0].id}"
 }
 
 output "redis_subnet_group_name" {
@@ -19,6 +19,6 @@ output "port" {
 }
 
 output "endpoint" {
-  value = aws_elasticache_replication_group.redis.primary_endpoint_address
+  value = "${var.redis_clusters == null ? aws_elasticache_replication_group.redis.configuration_endpoint_address : aws_elasticache_replication_group.redis.primary_endpoint_address}"
 }
 
