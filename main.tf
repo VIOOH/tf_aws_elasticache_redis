@@ -47,7 +47,7 @@ resource "aws_elasticache_replication_group" "redis" {
 
 resource "aws_elasticache_parameter_group" "redis_parameter_group" {
 
-  count = "${var.redis_clusters == null ? 0 :1}"
+  count = var.redis_clusters == null ? 0 : 1
 
   # tf-redis-sc-api-queue-dev
   name = "tf-redis-${var.name}-${var.env}"
@@ -82,7 +82,7 @@ resource "aws_elasticache_parameter_group" "redis_parameter_group" {
 
 resource "aws_elasticache_parameter_group" "redis_parameter_group_cluster" {
 
-  count = "${var.redis_clusters == null ? 1 :0}"
+  count = var.redis_clusters == null ? 1 : 0
   # tf-redis-sc-api-queue-dev
   name = "tf-redis-${var.name}-${var.env}"
 
