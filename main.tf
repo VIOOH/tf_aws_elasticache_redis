@@ -8,8 +8,8 @@ resource "random_id" "salt" {
 
 resource "aws_elasticache_replication_group" "redis" {
   replication_group_id          = replace(format("%.20s", "${var.name}-${var.env}"), "/-$/", "")
-  replication_group_description = "Terraform-managed ElastiCache replication group for ${var.name}-${var.env}"
-  number_cache_clusters         = var.redis_clusters
+  description                   = "Terraform-managed ElastiCache replication group for ${var.name}-${var.env}"
+  num_cache_clusters            = var.redis_clusters
   node_type                     = var.redis_node_type
   automatic_failover_enabled    = var.redis_failover
   engine_version                = var.redis_version
@@ -21,6 +21,8 @@ resource "aws_elasticache_replication_group" "redis" {
   maintenance_window            = var.redis_maintenance_window
   snapshot_window               = var.redis_snapshot_window
   snapshot_retention_limit      = var.redis_snapshot_retention_limit
+  security_group_names          = [] # This is needed to fix bug in AWS provider 5.30.0 - see https://github.com/hashicorp/terraform-provider-aws/issues/32835
+  preferred_cache_cluster_azs   = var.availability_zones
   tags = merge(
     {
       "Name" = format(
