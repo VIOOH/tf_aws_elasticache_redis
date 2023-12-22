@@ -97,3 +97,8 @@ variable "tags" {
   default     = {}
 }
 
+variable "availability_zones" {
+  description = "A list of EC2 availability zones in which the replication group's cache clusters will be created. The order of the availability zones in the list is not important"
+  type        = list(string)
+  default     = []
+}
