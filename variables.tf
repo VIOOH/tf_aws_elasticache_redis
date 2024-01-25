@@ -72,9 +72,12 @@ variable "vpc_id" {
 }
 
 variable "redis_parameters" {
-  type        = list(string)
-  description = "additional parameters modifyed in parameter group"
-  default     = []
+  description = "additional parameters modified in parameter group"  
+  type = list(object({
+    name = string
+    value= string
+  }))
+  default = []
 }
 
 variable "redis_maintenance_window" {
@@ -101,4 +104,10 @@ variable "availability_zones" {
   description = "A list of EC2 availability zones in which the replication group's cache clusters will be created. The order of the availability zones in the list is not important"
   type        = list(string)
   default     = []
+}
+
+variable "cluster_mode_enabled" {
+  type        = bool
+  description = "Flag to enable/disable creation of a native redis cluster. `automatic_failover_enabled` must be set to `true`. Only 1 `cluster_mode` block is allowed"
+  default     = false
 }
