@@ -1,3 +1,6 @@
+# Added support for Redis 7. You need to use redis_version value as below for different version
+# Redis < 6.x, need to enter redis_version value like 3.2.1 Means Major.Minor.patch
+# Redis >= 6.x need to enter redis_version value like 6.x Means Major.x
 locals {
   parameter_group_family = substr(var.redis_version, 0,1) < 6 ? "redis${replace(var.redis_version, "/\\.[\\d]+$/", "")}": (substr(var.redis_version, 0,1) == "6" ? "redis${substr(var.redis_version, 0,1)}.x": "redis${substr(var.redis_version, 0,1)}")
 }
