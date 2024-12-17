@@ -1,3 +1,7 @@
+locals {
+  parameter_group_family = substr(var.redis_version, 0,1) < 6 ? "redis${replace(var.redis_version, "/\\.[\\d]+$/", "")}": (substr(var.redis_version, 0,1) == "6" ? "redis${substr(var.redis_version, 0,1)}.x": "redis${substr(var.redis_version, 0,1)}")
+}
+
 data "aws_vpc" "vpc" {
   id = var.vpc_id
 }
@@ -43,7 +47,7 @@ resource "aws_elasticache_parameter_group" "redis_parameter_group" {
   description = "Terraform-managed ElastiCache parameter group for ${var.name}-${var.env}"
 
   # Strip the patch version from redis_version var
-  family = "redis${replace(var.redis_version, "/\\.[\\d]+$/", "")}"
+  family = local.parameter_group_family
   dynamic "parameter" {
     for_each = var.redis_parameters
     content {
