@@ -45,7 +45,7 @@ resource "aws_elasticache_replication_group" "redis" {
 resource "aws_elasticache_parameter_group" "redis_parameter_group" {
 
   # tf-redis-sc-api-queue-dev
-  name = "tf-redis-${var.name}-${var.env}"
+  name   = "tf-redis-${var.name}-${var.env}-${local.parameter_group_family}"
 
   description = "Terraform-managed ElastiCache parameter group for ${var.name}-${var.env}"
 
